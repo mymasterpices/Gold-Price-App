@@ -1,0 +1,45 @@
+# Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
+
+client_id = "05f5ce0c2bae8d8c663718f6b6401886"
+name = "Gold Price App"
+handle = "gold-price-app-5"
+application_url = "https://sanyo-merchandise-norwegian-male.trycloudflare.com"
+embedded = true
+
+[build]
+automatically_update_urls_on_dev = true
+dev_store_url = "thetelarana.myshopify.com"
+include_config_on_deploy = true
+
+[access_scopes]
+# Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
+scopes = "read_customers,read_draft_orders,read_inventory,read_orders,read_products,read_reports,read_shipping,write_customers,write_draft_orders,write_inventory,write_orders,write_products,write_reports,write_shipping"
+
+[auth]
+redirect_urls = [
+  "https://sanyo-merchandise-norwegian-male.trycloudflare.com/auth/callback",
+  "https://sanyo-merchandise-norwegian-male.trycloudflare.com/auth/shopify/callback",
+  "https://sanyo-merchandise-norwegian-male.trycloudflare.com/api/auth/callback"
+]
+
+[webhooks]
+api_version = "2024-10"
+
+  [[webhooks.subscriptions]]
+  uri = "/webhooks/customers/data_request"
+  compliance_topics = [ "customers/data_request" ]
+
+  [[webhooks.subscriptions]]
+  uri = "/webhooks/customers/redact"
+  compliance_topics = [ "customers/redact" ]
+
+  [[webhooks.subscriptions]]
+  uri = "/webhooks/shop/redact"
+  compliance_topics = [ "shop/redact" ]
+
+  [[webhooks.subscriptions]]
+  topics = [ "app/uninstalled" ]
+  uri = "/webhooks/app/uninstalled"
+
+[pos]
+embedded = false
